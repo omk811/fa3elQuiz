@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تدريبات مكثفة حول الفاعل</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100%;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .rule-box {
+            background: #f8f9fa;
+            border-right: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        
+        .rule-box h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .exercise-section {
+            padding: 20px;
+        }
+        
+        .exercise-card {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .exercise-title {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .exercise-number {
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .sentence {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-right: 4px solid #17a2b8;
+        }
+        
+        .word {
+            display: inline-block;
+            margin: 2px 5px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .word:hover {
+            background: #e9ecef;
+            transform: scale(1.05);
+        }
+        
+        .word.selected {
+            background: #28a745;
+            color: white;
+            border-color: #1e7e34;
+        }
+        
+        .word.correct {
+            background: #28a745;
+            color: white;
+            animation: pulse 0.5s;
+        }
+        
+        .word.incorrect {
+            background: #dc3545;
+            color: white;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-success {
+            background: linear-gradient(45deg, #27ae60, #229954);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .score-board {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .input-exercise {
+            margin: 15px 0;
+        }
+        
+        .input-exercise input {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .input-exercise input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #e9ecef;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 تدريبات مكثفة حول الفاعل</h1>
+            <p>تعلم وتدرب على قواعد الفاعل في النحو العربي</p>
+        </div>
+        
+        <div class="rule-box">
+            <h3>📚 قاعدة الفاعل - للصف الخامس الأساسي</h3>
+            <p><strong>الفاعل:</strong> اسم مرفوع بالضمة يأتي بعد الفعل ليدل على من قام بالفعل</p>
+            <p><strong>مثال:</strong> كتبَ الطالبُ الدرسَ</p>
+            <p>• الفعل: كتبَ</p>
+            <p>• الفاعل: الطالبُ (مرفوع بالضمة)</p>
+            <p>• المفعول به: الدرسَ (منصوب بالفتحة)</p>
+        </div>
+        
+        <div class="rule-box" style="border-right-color: #e74c3c;">
+            <h3>🎯 طريقتان سهلتان لإيجاد الفاعل</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>✅ الطريقة الأولى: السؤال بـ "مَن"</h4>
+                    <p>اسأل: مَن + الفعل؟</p>
+                    <p><em>مثال: كتب الطالب → مَن كتب؟ = الطالب</em></p>
+                </div>
+                <div>
+                    <h4>✅ الطريقة الثانية: البحث عن الضمة</h4>
+                    <p>الفاعل دائماً مرفوع بالضمة (ُ)</p>
+                    <p><em>مثال: جاء الطالبُ (بالضمة)</em></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="score-board">
+            <div>النقاط: <span id="score">0</span> | الإجابات الصحيحة: <span id="correct">0</span> | المحاولات: <span id="attempts">0</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('identification')">تحديد الفاعل</button>
+            <button class="tab" onclick="showTab('tricks')">الحيل النحوية</button>
+            <button class="tab" onclick="showTab('intensive')">تدريبات مكثفة</button>
+            <button class="tab" onclick="showTab('types')">أنواع الفاعل</button>
+            <button class="tab" onclick="showTab('paragraph')">فقرات متقدمة</button>
+            <button class="tab" onclick="showTab('challenges')">تحديات صعبة</button>
+        </div>
+        
+        <div class="exercise-section">
+            <!-- تحديد الفاعل -->
+            <div id="identification" class="tab-content active">
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">1</div>
+                        تدريب تحديد الفاعل
+                    </div>
+                    <div class="explanation" style="background: #e3f2fd; border-color: #2196f3;">
+                        <h4>📋 التعليمات:</h4>
+                        <p>• اقرأ الجملة بعناية</p>
+                        <p>• اسأل نفسك السؤال المعطى</p>
+                        <p>• انقر على الكلمة التي تجيب على السؤال</p>
+                        <p>• الفاعل دائماً مرفوع بالضمة (ُ)</p>
+                    </div>
+                    <div id="currentQuestion1" style="background: #fff3e0; padding: 15px; border-radius: 10px; margin: 15px 0; font-weight: bold; color: #e65100;">
+                        السؤال: مَن الذي كتب الدرس؟
+                    </div>
+                    <div id="currentHint1" style="background: #f3e5f5; padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 0.9rem; color: #7b1fa2;">
+                        💡 تلميح: ابحث عن الاسم الذي عليه ضمة (ُ) بعد الفعل 'كتب'
+                    </div>
+                    <div class="sentence" id="sentence1">
+                        <span class="word" data-role="verb">كتب</span>
+                        <span class="word" data-role="subject">الطالب</span>
+                        <span class="word" data-role="object">الدرس</span>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <button class="btn" onclick="checkAnswer(1)">✅ تحقق من الإجابة</button>
+                        <button class="btn btn-success" onclick="nextSentence(1)">➡️ الجملة التالية</button>
+                        <button class="btn" onclick="showHint(1)" style="background: linear-gradient(45deg, #ff9800, #f57c00);">💡 إظهار تلميح إضافي</button>
+                    </div>
+                    <div id="feedback1" class="feedback" style="display: none;"></div>
+                    <div id="extraHint1" class="explanation" style="display: none; background: #e8f5e8; border-color: #4caf50;">
+                        <p><strong>تلميح إضافي:</strong> الفاعل هو من قام بالفعل. في هذه الجملة، مَن الذي قام بفعل الكتابة؟ ابحث عن الكلمة التي عليها ضمة (ُ)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الحيل النحوية -->
+            <div id="tricks" class="tab-content">
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">🎯</div>
+                        تطبيق الحيلة الأولى: السؤال بـ "مَن"
+                    </div>
+                    <div class="sentence">استيقظ الطفل مبكراً</div>
+                    <div class="explanation">
+                        <p><strong>الحيلة:</strong> اسأل "مَن استيقظ؟"</p>
+                        <p><strong>الإجابة:</strong> الطفل</p>
+                    </div>
+                    <div class="sentence" id="trickSentence1">
+                        <span class="word" data-role="verb">غادر</span>
+                        <span class="word" data-role="subject">المدير</span>
+                        <span class="word" data-role="object">المكتب</span>
+                        <span class="word" data-role="adverb">مساءً</span>
+                    </div>
+                    <p>اسأل: مَن غادر؟</p>
+                    <button class="btn" onclick="checkTrick(1)">تحقق من الإجابة</button>
+                    <div id="trickFeedback1" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">🔍</div>
+                        تطبيق الطريقة الثانية: البحث عن الضمة
+                    </div>
+                    <div class="sentence">شاهدت البناتُ المسرحيةَ</div>
+                    <div class="explanation">
+                        <p><strong>الطريقة:</strong> ابحث عن الكلمة التي عليها ضمة (ُ)</p>
+                        <p><strong>البناتُ:</strong> عليها ضمة = فاعل</p>
+                        <p><strong>المسرحيةَ:</strong> عليها فتحة = مفعول به</p>
+                    </div>
+                    <div class="sentence" id="trickSentence2">
+                        <span class="word" data-role="verb">كتبت</span>
+                        <span class="word" data-role="subject">الطالباتُ</span>
+                        <span class="word" data-role="object">التقريرَ</span>
+                    </div>
+                    <p>ابحث عن الكلمة التي عليها ضمة (ُ):</p>
+                    <button class="btn" onclick="checkTrick(2)">تحقق من الإجابة</button>
+                    <div id="trickFeedback2" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- أنواع الفاعل -->
+            <div id="types" class="tab-content">
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">📚</div>
+                        تدريب على أنواع الفاعل المختلفة
+                    </div>
+                    <div class="explanation" style="background: #f3e5f5; border-color: #9c27b0;">
+                        <h4>🎯 أنواع الفاعل - للصف الخامس الأساسي:</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <p><strong>1. مفرد مذكر:</strong> الطالبُ، الرجلُ</p>
+                                <p><strong>2. مفرد مؤنث:</strong> الطالبةُ، المرأةُ</p>
+                            </div>
+                            <div>
+                                <p><strong>3. جمع تكسير:</strong> الطلابُ، الرجالُ</p>
+                                <p><strong>4. جمع مؤنث سالم:</strong> المعلماتُ، المسلماتُ</p>
+                            </div>
+                        </div>
+                        <div style="background: #fff3e0; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <p><strong>ملاحظة:</strong> جميع أنواع الفاعل ترفع بالضمة (ُ)</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                        <h4>السؤال: ما نوع الفاعل في الجملة التالية؟</h4>
+                        <div class="sentence" style="font-size: 1.3rem; text-align: center; color: #e65100;">
+                            <span id="typesSentence">كتبت الطالبات التقرير</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0;">
+                        <button class="btn" onclick="checkType('مفرد مذكر')">مفرد مذكر</button>
+                        <button class="btn" onclick="checkType('مفرد مؤنث')">مفرد مؤنث</button>
+                        <button class="btn" onclick="checkType('جمع تكسير')">جمع تكسير</button>
+                        <button class="btn" onclick="checkType('جمع مؤنث سالم')">جمع مؤنث سالم</button>
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="nextTypeQuestion()">➡️ السؤال التالي</button>
+                    <div id="typesFeedback" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">🔍</div>
+                        تدريب تحديد الفاعل حسب النوع
+                    </div>
+                    <div style="background: #e8f5e8; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                        <p><strong>التعليمات:</strong> حدد الفاعل في الجملة، ثم اختر نوعه</p>
+                    </div>
+                    
+                    <div id="mixedQuestion" style="background: #fff3e0; padding: 15px; border-radius: 10px; margin: 15px 0; font-weight: bold; color: #e65100;">
+                        السؤال: حدد الفاعل في الجملة التالية
+                    </div>
+                    
+                    <div class="sentence" id="mixedSentence">
+                        <span class="word" data-role="verb">كتبت</span>
+                        <span class="word" data-role="subject">الطالبات</span>
+                        <span class="word" data-role="object">التقرير</span>
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <button class="btn" onclick="checkMixed()">✅ تحقق من الفاعل</button>
+                        <button class="btn btn-success" onclick="nextMixed()">➡️ التالي</button>
+                    </div>
+                    
+                    <div id="mixedTypeQuestion" style="display: none; background: #f3e5f5; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                        <p><strong>الآن حدد نوع الفاعل:</strong></p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <button class="btn" onclick="checkMixedType('مفرد مؤنث')">مفرد مؤنث</button>
+                            <button class="btn" onclick="checkMixedType('جمع مؤنث سالم')">جمع مؤنث سالم</button>
+                            <button class="btn" onclick="checkMixedType('جمع تكسير')">جمع تكسير</button>
+                            <button class="btn" onclick="checkMixedType('مفرد مذكر')">مفرد مذكر</button>
+                        </div>
+                    </div>
+                    
+                    <div id="mixedFeedback" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- تدريبات مكثفة -->
+            <div id="intensive" class="tab-content">
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">💪</div>
+                        تدريب مكثف: 40 جملة متتالية
+                    </div>
+                    <div class="explanation" style="background: #fff3e0; border-color: #ff9800;">
+                        <h4>🎯 هدف التدريب:</h4>
+                        <p>• أجب على 40 سؤالاً متتالياً لتقوية مهارتك في تحديد الفاعل</p>
+                        <p>• اقرأ السؤال أولاً، ثم انقر على الفاعل في الجملة</p>
+                        <p>• تذكر: الفاعل دائماً عليه ضمة (ُ)</p>
+                        <p>• كلما أجبت بسرعة وصحة، كلما حصلت على نقاط أكثر!</p>
+                    </div>
+                    <div id="intensiveQuestion" style="background: #e8f5e8; padding: 15px; border-radius: 10px; margin: 15px 0; font-weight: bold; color: #2e7d32; text-align: center; font-size: 1.1rem;">
+                        السؤال: مَن قرأ الكتاب؟
+                    </div>
+                    <div class="sentence" id="intensiveSentence">
+                        <span class="word" data-role="verb">قرأ</span>
+                        <span class="word" data-role="subject">أحمد</span>
+                        <span class="word" data-role="object">الكتاب</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span>الجملة <span id="currentQuestion">1</span> من 40</span>
+                        <span>الوقت: <span id="timer">00:00</span></span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="intensiveProgress" style="width: 2.5%"></div>
+                    </div>
+                    <button class="btn" onclick="checkIntensive()">✅ تحقق من الإجابة</button>
+                    <button class="btn btn-success" onclick="nextIntensive()">➡️ التالي</button>
+                    <div id="intensiveFeedback" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">⚡</div>
+                        تحدي السرعة: حدد 10 فواعل في دقيقة واحدة
+                    </div>
+                    <div class="sentence" id="speedSentence">
+                        <span class="word" data-role="verb">لعب</span>
+                        <span class="word" data-role="subject">الأطفال</span>
+                        <span class="word" data-role="prep">في</span>
+                        <span class="word" data-role="object">الحديقة</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                        <span>النقاط: <span id="speedScore">0</span>/10</span>
+                        <span style="color: #e74c3c; font-weight: bold;">الوقت المتبقي: <span id="speedTimer">60</span>ث</span>
+                    </div>
+                    <button class="btn" onclick="startSpeedChallenge()" id="speedStart">ابدأ التحدي</button>
+                    <button class="btn" onclick="checkSpeed()" id="speedCheck" style="display: none;">تحقق</button>
+                    <div id="speedFeedback" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- فقرات متقدمة -->
+            <div id="paragraph" class="tab-content">
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">📖</div>
+                        استخراج الفواعل من الفقرة
+                    </div>
+                    <div class="sentence" style="line-height: 2; font-size: 1.1rem;">
+                        <span class="word" data-role="verb">استيقظ</span>
+                        <span class="word" data-role="subject">الطلاب</span>
+                        <span class="word" data-role="adverb">مبكراً</span>
+                        <span class="word" data-role="conj">و</span><span class="word" data-role="verb">توجهوا</span>
+                        <span class="word" data-role="prep">إلى</span>
+                        <span class="word" data-role="object">المدرسة</span>.
+                        <span class="word" data-role="verb">شرحت</span>
+                        <span class="word" data-role="subject">المعلمة</span>
+                        <span class="word" data-role="object">الدرس</span>
+                        <span class="word" data-role="adverb">بوضوح</span>
+                        <span class="word" data-role="conj">ثم</span>
+                        <span class="word" data-role="verb">حلت</span>
+                        <span class="word" data-role="subject">الطالبات</span>
+                        <span class="word" data-role="object">التمارين</span>.
+                    </div>
+                    <p><strong>المطلوب:</strong> حدد جميع الفواعل في الفقرة (4 فواعل)</p>
+                    <div id="selectedSubjects" style="margin: 15px 0; padding: 10px; background: #f8f9fa; border-radius: 8px;">
+                        <strong>الفواعل المحددة:</strong> <span id="subjectsList">لم تحدد أي فاعل بعد</span>
+                    </div>
+                    <button class="btn" onclick="checkParagraph()">تحقق من الإجابات</button>
+                    <button class="btn btn-success" onclick="resetParagraph()">إعادة تعيين</button>
+                    <div id="paragraphFeedback" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- تحديات صعبة -->
+            <div id="challenges" class="tab-content">
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">🔥</div>
+                        تحدي الجمل المعقدة
+                    </div>
+                    <div class="sentence">في الصباح الباكر، خرجت الطالبات المجتهدات من المنزل وتوجهن إلى المدرسة حيث استقبلتهن المعلمة بابتسامة عريضة</div>
+                    <div class="explanation">
+                        <p><strong>التحدي:</strong> هذه جملة تحتوي على عدة أفعال وفواعل</p>
+                        <p><strong>الطريقة:</strong> ابحث عن كل فعل، ثم اسأل "مَن" قام بهذا الفعل؟</p>
+                    </div>
+                    <div class="sentence" id="challengeSentence">
+                        <span class="word" data-role="prep">في</span>
+                        <span class="word" data-role="object">الحديقة</span>
+                        <span class="word" data-role="verb">لعب</span>
+                        <span class="word" data-role="subject">الأطفال</span>
+                        <span class="word" data-role="conj">و</span><span class="word" data-role="verb">ضحكت</span>
+                        <span class="word" data-role="subject">البنات</span>
+                        <span class="word" data-role="conj">بينما</span>
+                        <span class="word" data-role="verb">راقب</span>
+                        <span class="word" data-role="subject">الآباء</span>
+                        <span class="word" data-role="object">أطفالهم</span>
+                    </div>
+                    <p><strong>المطلوب:</strong> حدد الفواعل الثلاثة في هذه الجملة المركبة</p>
+                    <button class="btn" onclick="checkChallenge()">تحقق من الإجابة</button>
+                    <div id="challengeFeedback" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-title">
+                        <div class="exercise-number">🏆</div>
+                        التحدي النهائي: الفاعل المستتر
+                    </div>
+                    <div class="sentence">اكتب واجبك! - ادرس بجد - اقرأ الكتاب</div>
+                    <div class="explanation">
+                        <p><strong>ملاحظة مهمة:</strong> في هذه الجمل الفاعل مستتر (مخفي)</p>
+                        <p><strong>اكتب:</strong> فعل أمر، الفاعل مستتر تقديره "أنت"</p>
+                        <p><strong>ادرس:</strong> فعل أمر، الفاعل مستتر تقديره "أنت"</p>
+                    </div>
+                    <div class="sentence">
+                        <span class="word" data-role="verb">سافر</span>
+                        <span class="word" data-role="subject">محمد</span>
+                        <span class="word" data-role="conj">و</span>
+                        <span class="word" data-role="verb">عاد</span>
+                        <span class="word" data-role="adverb">مساءً</span>
+                    </div>
+                    <p><strong>السؤال:</strong> ما فاعل الفعل "عاد"؟</p>
+                    <button class="btn" onclick="selectHidden('محمد')">محمد</button>
+                    <button class="btn" onclick="selectHidden('مستتر')">ضمير مستتر</button>
+                    <button class="btn" onclick="selectHidden('مساءً')">مساءً</button>
+                    <div id="hiddenFeedback" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let correct = 0;
+        let attempts = 0;
+        let selectedWords = new Set();
+        
+        const sentences = [
+            {
+                words: [
+                    {text: "كتب", role: "verb"},
+                    {text: "الطالب", role: "subject"},
+                    {text: "الدرس", role: "object"}
+                ],
+                question: "مَن الذي كتب الدرس؟",
+                hint: "ابحث عن الاسم المرفوع الذي يأتي بعد الفعل 'كتب'"
+            },
+            {
+                words: [
+                    {text: "قرأت", role: "verb"},
+                    {text: "البنت", role: "subject"},
+                    {text: "القصة", role: "object"}
+                ],
+                question: "مَن التي قرأت القصة؟",
+                hint: "لاحظ تاء التأنيث في الفعل 'قرأت' - هذا يدل على أن الفاعل مؤنث"
+            },
+            {
+                words: [
+                    {text: "لعب", role: "verb"},
+                    {text: "الأطفال", role: "subject"},
+                    {text: "في", role: "prep"},
+                    {text: "الحديقة", role: "object"}
+                ],
+                question: "مَن الذين لعبوا في الحديقة؟",
+                hint: "الفاعل هنا جمع تكسير - ابحث عن الاسم المرفوع"
+            },
+            {
+                words: [
+                    {text: "طبخت", role: "verb"},
+                    {text: "الطالبات", role: "subject"},
+                    {text: "الطعام", role: "object"}
+                ],
+                question: "مَن اللواتي طبخن الطعام؟",
+                hint: "الفاعل هنا جمع مؤنث سالم - لاحظ الضمة في آخر الكلمة"
+            },
+            {
+                words: [
+                    {text: "وصل", role: "verb"},
+                    {text: "الضيوف", role: "subject"},
+                    {text: "مساءً", role: "adverb"}
+                ],
+                question: "مَن الذين وصلوا مساءً؟",
+                hint: "ابحث عن الاسم الذي يجيب على سؤال 'مَن وصل؟'"
+            },
+            {
+                words: [
+                    {text: "سافرت", role: "verb"},
+                    {text: "الأسرة", role: "subject"},
+                    {text: "إلى", role: "prep"},
+                    {text: "مكة", role: "object"}
+                ],
+                question: "مَن التي سافرت إلى مكة؟",
+                hint: "الفاعل مؤنث لفظاً - لاحظ تاء التأنيث في الفعل"
+            },
+            {
+                words: [
+                    {text: "حضر", role: "verb"},
+                    {text: "المعلمون", role: "subject"},
+                    {text: "الاجتماع", role: "object"}
+                ],
+                question: "مَن الذين حضروا الاجتماع؟",
+                hint: "الفاعل جمع مذكر سالم - يرفع بالواو والنون"
+            },
+            {
+                words: [
+                    {text: "نامت", role: "verb"},
+                    {text: "الطفلة", role: "subject"},
+                    {text: "مبكراً", role: "adverb"}
+                ],
+                question: "مَن التي نامت مبكراً؟",
+                hint: "الفاعل مفرد مؤنث - لاحظ تاء التأنيث في الفعل والفاعل"
+            },
+            {
+                words: [
+                    {text: "عمل", role: "verb"},
+                    {text: "الطلاب", role: "subject"},
+                    {text: "المشروع", role: "object"},
+                    {text: "بجد", role: "adverb"}
+                ],
+                question: "مَن الذين عملوا المشروع بجد؟",
+                hint: "ابحث عن الاسم المرفوع الذي يدل على من قام بالعمل"
+            },
+            {
+                words: [
+                    {text: "غنت", role: "verb"},
+                    {text: "المطربات", role: "subject"},
+                    {text: "الأغاني", role: "object"},
+                    {text: "الجميلة", role: "adj"}
+                ],
+                question: "مَن اللواتي غنين الأغاني الجميلة؟",
+                hint: "الفاعل جمع مؤنث سالم - لاحظ تاء التأنيث في الفعل"
+            }
+        ];
+        
+        const intensiveSentences = [
+            {words: [{text: "قرأ", role: "verb"}, {text: "أحمد", role: "subject"}, {text: "الكتاب", role: "object"}], question: "مَن قرأ الكتاب؟"},
+            {words: [{text: "كتبت", role: "verb"}, {text: "فاطمة", role: "subject"}, {text: "الرسالة", role: "object"}], question: "مَن كتبت الرسالة؟"},
+            {words: [{text: "لعب", role: "verb"}, {text: "الأولاد", role: "subject"}, {text: "الكرة", role: "object"}], question: "مَن لعب الكرة؟"},
+            {words: [{text: "طبخت", role: "verb"}, {text: "الأمهات", role: "subject"}, {text: "الطعام", role: "object"}], question: "مَن طبخ الطعام؟"},
+            {words: [{text: "درس", role: "verb"}, {text: "الطلاب", role: "subject"}, {text: "النحو", role: "object"}], question: "مَن درس النحو؟"},
+            {words: [{text: "شاهدت", role: "verb"}, {text: "البنات", role: "subject"}, {text: "الفيلم", role: "object"}], question: "مَن شاهد الفيلم؟"},
+            {words: [{text: "زار", role: "verb"}, {text: "السائح", role: "subject"}, {text: "المتحف", role: "object"}], question: "مَن زار المتحف؟"},
+            {words: [{text: "رسمت", role: "verb"}, {text: "الفنانة", role: "subject"}, {text: "اللوحة", role: "object"}], question: "مَن رسم اللوحة؟"},
+            {words: [{text: "غنى", role: "verb"}, {text: "المطرب", role: "subject"}, {text: "الأغنية", role: "object"}], question: "مَن غنى الأغنية؟"},
+            {words: [{text: "حفظت", role: "verb"}, {text: "التلميذات", role: "subject"}, {text: "القصيدة", role: "object"}], question: "مَن حفظ القصيدة؟"},
+            {words: [{text: "بنى", role: "verb"}, {text: "العمال", role: "subject"}, {text: "البيت", role: "object"}], question: "مَن بنى البيت؟"},
+            {words: [{text: "قادت", role: "verb"}, {text: "المرأة", role: "subject"}, {text: "السيارة", role: "object"}], question: "مَن قاد السيارة؟"},
+            {words: [{text: "حمل", role: "verb"}, {text: "الرجل", role: "subject"}, {text: "الحقيبة", role: "object"}], question: "مَن حمل الحقيبة؟"},
+            {words: [{text: "أكلت", role: "verb"}, {text: "الطفلات", role: "subject"}, {text: "التفاح", role: "object"}], question: "مَن أكل التفاح؟"},
+            {words: [{text: "شرب", role: "verb"}, {text: "المريض", role: "subject"}, {text: "الدواء", role: "object"}], question: "مَن شرب الدواء؟"},
+            {words: [{text: "فتحت", role: "verb"}, {text: "الخادمة", role: "subject"}, {text: "النافذة", role: "object"}], question: "مَن فتح النافذة؟"},
+            {words: [{text: "أغلق", role: "verb"}, {text: "الحارس", role: "subject"}, {text: "الباب", role: "object"}], question: "مَن أغلق الباب؟"},
+            {words: [{text: "غسلت", role: "verb"}, {text: "الأم", role: "subject"}, {text: "الملابس", role: "object"}], question: "مَن غسل الملابس؟"},
+            {words: [{text: "نظف", role: "verb"}, {text: "العامل", role: "subject"}, {text: "الشارع", role: "object"}], question: "مَن نظف الشارع؟"},
+            {words: [{text: "زرعت", role: "verb"}, {text: "الفلاحات", role: "subject"}, {text: "الأزهار", role: "object"}], question: "مَن زرع الأزهار؟"},
+            {words: [{text: "صنع", role: "verb"}, {text: "النجار", role: "subject"}, {text: "الطاولة", role: "object"}], question: "مَن صنع الطاولة؟"},
+            {words: [{text: "خبزت", role: "verb"}, {text: "الجدة", role: "subject"}, {text: "الكعك", role: "object"}], question: "مَن خبز الكعك؟"},
+            {words: [{text: "اشترى", role: "verb"}, {text: "الأب", role: "subject"}, {text: "الهدايا", role: "object"}], question: "مَن اشترى الهدايا؟"},
+            {words: [{text: "حلت", role: "verb"}, {text: "الطالبات", role: "subject"}, {text: "المسائل", role: "object"}], question: "مَن حل المسائل؟"},
+            {words: [{text: "جمع", role: "verb"}, {text: "الأطفال", role: "subject"}, {text: "الأوراق", role: "object"}], question: "مَن جمع الأوراق؟"},
+            {words: [{text: "صلحت", role: "verb"}, {text: "المهندسة", role: "subject"}, {text: "الآلة", role: "object"}], question: "مَن صلح الآلة؟"},
+            {words: [{text: "باع", role: "verb"}, {text: "التاجر", role: "subject"}, {text: "البضاعة", role: "object"}], question: "مَن باع البضاعة؟"},
+            {words: [{text: "ألقت", role: "verb"}, {text: "المعلمة", role: "subject"}, {text: "المحاضرة", role: "object"}], question: "مَن ألقى المحاضرة؟"},
+            {words: [{text: "حرث", role: "verb"}, {text: "الفلاح", role: "subject"}, {text: "الأرض", role: "object"}], question: "مَن حرث الأرض؟"},
+            {words: [{text: "نسجت", role: "verb"}, {text: "النساء", role: "subject"}, {text: "السجاد", role: "object"}], question: "مَن نسج السجاد؟"},
+            {words: [{text: "حفر", role: "verb"}, {text: "العمال", role: "subject"}, {text: "البئر", role: "object"}], question: "مَن حفر البئر؟"},
+            {words: [{text: "قطفت", role: "verb"}, {text: "البنات", role: "subject"}, {text: "الثمار", role: "object"}], question: "مَن قطف الثمار؟"},
+            {words: [{text: "ركبت", role: "verb"}, {text: "الطالبات", role: "subject"}, {text: "الحافلة", role: "object"}], question: "مَن ركب الحافلة؟"},
+            {words: [{text: "حملت", role: "verb"}, {text: "الممرضات", role: "subject"}, {text: "الأدوية", role: "object"}], question: "مَن حمل الأدوية؟"},
+            {words: [{text: "قاد", role: "verb"}, {text: "الكابتن", role: "subject"}, {text: "الطائرة", role: "object"}], question: "مَن قاد الطائرة؟"},
+            {words: [{text: "نظمت", role: "verb"}, {text: "الطالبات", role: "subject"}, {text: "الحفلة", role: "object"}], question: "مَن نظم الحفلة؟"},
+            {words: [{text: "أعد", role: "verb"}, {text: "الطباخ", role: "subject"}, {text: "الوجبة", role: "object"}], question: "مَن أعد الوجبة؟"},
+            {words: [{text: "حضرت", role: "verb"}, {text: "الأمهات", role: "subject"}, {text: "الاجتماع", role: "object"}], question: "مَن حضر الاجتماع؟"},
+            {words: [{text: "صمم", role: "verb"}, {text: "المهندس", role: "subject"}, {text: "المبنى", role: "object"}], question: "مَن صمم المبنى؟"},
+            {words: [{text: "ترجمت", role: "verb"}, {text: "المترجمة", role: "subject"}, {text: "النص", role: "object"}], question: "مَن ترجم النص؟"}
+        ];
+        
+        const speedSentences = [
+            {words: [{text: "لعب", role: "verb"}, {text: "الأطفال", role: "subject"}, {text: "في", role: "prep"}, {text: "الحديقة", role: "object"}]},
+            {words: [{text: "قرأت", role: "verb"}, {text: "سارة", role: "subject"}, {text: "القصة", role: "object"}]},
+            {words: [{text: "كتب", role: "verb"}, {text: "المؤلف", role: "subject"}, {text: "الرواية", role: "object"}]},
+            {words: [{text: "طبخت", role: "verb"}, {text: "الجدة", role: "subject"}, {text: "الكعك", role: "object"}]},
+            {words: [{text: "سافر", role: "verb"}, {text: "الوفد", role: "subject"}, {text: "إلى", role: "prep"}, {text: "باريس", role: "object"}]},
+            {words: [{text: "درست", role: "verb"}, {text: "الطالبات", role: "subject"}, {text: "الرياضيات", role: "object"}]},
+            {words: [{text: "زار", role: "verb"}, {text: "الضيوف", role: "subject"}, {text: "المعرض", role: "object"}]},
+            {words: [{text: "رسمت", role: "verb"}, {text: "الفتاة", role: "subject"}, {text: "المنظر", role: "object"}]},
+            {words: [{text: "حفظ", role: "verb"}, {text: "التلاميذ", role: "subject"}, {text: "النشيد", role: "object"}]},
+            {words: [{text: "شاهدت", role: "verb"}, {text: "العائلة", role: "subject"}, {text: "المباراة", role: "object"}]}
+        ];
+        
+        let currentIntensiveIndex = 0;
+        let intensiveTimer = 0;
+        let intensiveInterval;
+        let speedTimer = 60;
+        let speedInterval;
+        let speedScore = 0;
+        let speedIndex = 0;
+        let paragraphSubjects = [];
+        let challengeSubjects = [];
+        
+        let currentSentenceIndex = 0;
+        
+        function showTab(tabName) {
+            // إخفاء جميع المحتويات
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // إزالة الفئة النشطة من جميع التبويبات
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // إظهار المحتوى المحدد
+            document.getElementById(tabName).classList.add('active');
+            
+            // تفعيل التبويب المحدد
+            event.target.classList.add('active');
+        }
+        
+        function selectWord(element) {
+            const word = element.textContent;
+            const role = element.dataset.role;
+            
+            // إزالة التحديد السابق
+            document.querySelectorAll('.word').forEach(w => w.classList.remove('selected'));
+            
+            // تحديد الكلمة الحالية
+            element.classList.add('selected');
+            selectedWords.clear();
+            selectedWords.add({word, role, element});
+        }
+        
+        function checkAnswer(exerciseNum) {
+            attempts++;
+            const sentence = document.getElementById(`sentence${exerciseNum}`);
+            const words = sentence.querySelectorAll('.word');
+            const feedback = document.getElementById(`feedback${exerciseNum}`);
+            
+            let subjectFound = false;
+            let correctSelection = false;
+            
+            words.forEach(word => {
+                if (word.classList.contains('selected')) {
+                    if (word.dataset.role === 'subject') {
+                        word.classList.add('correct');
+                        correctSelection = true;
+                        subjectFound = true;
+                    } else {
+                        word.classList.add('incorrect');
+                    }
+                }
+            });
+            
+            if (correctSelection) {
+                score += 10;
+                correct++;
+                feedback.textContent = "🎉 ممتاز! لقد حددت الفاعل بشكل صحيح";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "❌ إجابة خاطئة. الفاعل هو الاسم المرفوع الذي يأتي بعد الفعل";
+                feedback.className = "feedback incorrect";
+                
+                // إظهار الإجابة الصحيحة
+                words.forEach(word => {
+                    if (word.dataset.role === 'subject') {
+                        word.classList.add('correct');
+                    }
+                });
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function nextSentence(exerciseNum) {
+            currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
+            const sentence = sentences[currentSentenceIndex];
+            const sentenceElement = document.getElementById(`sentence${exerciseNum}`);
+            
+            // مسح الجملة الحالية
+            sentenceElement.innerHTML = '';
+            
+            // إضافة الكلمات الجديدة
+            sentence.words.forEach(wordData => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = wordData.text;
+                span.dataset.role = wordData.role;
+                span.onclick = () => selectWord(span);
+                sentenceElement.appendChild(span);
+            });
+            
+            // تحديث السؤال والتلميح
+            document.getElementById(`currentQuestion${exerciseNum}`).textContent = `السؤال: ${sentence.question}`;
+            document.getElementById(`currentHint${exerciseNum}`).textContent = `💡 تلميح: ${sentence.hint}`;
+            
+            // إخفاء التغذية الراجعة والتلميح الإضافي
+            const feedback = document.getElementById(`feedback${exerciseNum}`);
+            const extraHint = document.getElementById(`extraHint${exerciseNum}`);
+            feedback.style.display = 'none';
+            extraHint.style.display = 'none';
+        }
+        
+        function showHint(exerciseNum) {
+            const extraHint = document.getElementById(`extraHint${exerciseNum}`);
+            if (extraHint.style.display === 'none') {
+                extraHint.style.display = 'block';
+            } else {
+                extraHint.style.display = 'none';
+            }
+        }
+        
+        function selectType(exerciseNum, type) {
+            attempts++;
+            const feedback = document.getElementById(`feedback${exerciseNum}`);
+            let correct_answer = '';
+            
+            if (exerciseNum === 3) {
+                correct_answer = 'مفرد';
+            } else if (exerciseNum === 4) {
+                correct_answer = 'جمع تكسير';
+            }
+            
+            if (type === correct_answer) {
+                score += 10;
+                correct++;
+                feedback.textContent = "🎉 إجابة صحيحة!";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ إجابة خاطئة. الإجابة الصحيحة هي: ${correct_answer}`;
+                feedback.className = "feedback incorrect";
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function checkCompletion(exerciseNum) {
+            attempts++;
+            const input = document.getElementById(`completion${exerciseNum}`);
+            const feedback = document.getElementById(`feedback${exerciseNum + 4}`);
+            const answer = input.value.trim();
+            
+            const validAnswers = {
+                1: ['الرجل', 'الولد', 'الطالب', 'المسافر', 'الأب'],
+                2: ['الأم', 'المرأة', 'الطالبة', 'البنت', 'الطباخة']
+            };
+            
+            if (validAnswers[exerciseNum].includes(answer)) {
+                score += 10;
+                correct++;
+                feedback.textContent = "🎉 ممتاز! إجابة صحيحة";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ حاول مرة أخرى. مثال على إجابة صحيحة: ${validAnswers[exerciseNum][0]}`;
+                feedback.className = "feedback incorrect";
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function selectAnalysis(exerciseNum, answer) {
+            attempts++;
+            const feedback = document.getElementById(`feedback${exerciseNum}`);
+            
+            if (answer === 'صحيح') {
+                score += 10;
+                correct++;
+                feedback.textContent = "🎉 ممتاز! المعلمات جمع مؤنث سالم يرفع بالضمة";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "❌ خطأ. المعلمات جمع مؤنث سالم يرفع بالضمة وليس بالكسرة";
+                feedback.className = "feedback incorrect";
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('correct').textContent = correct;
+            document.getElementById('attempts').textContent = attempts;
+            
+            const percentage = attempts > 0 ? (correct / attempts) * 100 : 0;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+        
+        // وظائف الحيل النحوية
+        function checkTrick(trickNum) {
+            attempts++;
+            const sentence = document.getElementById(`trickSentence${trickNum}`);
+            const words = sentence.querySelectorAll('.word');
+            const feedback = document.getElementById(`trickFeedback${trickNum}`);
+            
+            let correctSelection = false;
+            
+            words.forEach(word => {
+                if (word.classList.contains('selected')) {
+                    if (word.dataset.role === 'subject') {
+                        word.classList.add('correct');
+                        correctSelection = true;
+                    } else {
+                        word.classList.add('incorrect');
+                    }
+                }
+            });
+            
+            if (correctSelection) {
+                score += 15;
+                correct++;
+                if (trickNum === 1) {
+                    feedback.textContent = "🎯 ممتاز! المدير هو من غادر - الطريقة نجحت!";
+                } else {
+                    feedback.textContent = "🔍 رائع! الطالباتُ عليها ضمة = فاعل";
+                }
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "❌ حاول مرة أخرى باستخدام الطريقة المذكورة";
+                feedback.className = "feedback incorrect";
+                
+                words.forEach(word => {
+                    if (word.dataset.role === 'subject') {
+                        word.classList.add('correct');
+                    }
+                });
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        // وظائف التدريب المكثف
+        function checkIntensive() {
+            attempts++;
+            const sentence = document.getElementById('intensiveSentence');
+            const words = sentence.querySelectorAll('.word');
+            const feedback = document.getElementById('intensiveFeedback');
+            
+            let correctSelection = false;
+            
+            words.forEach(word => {
+                if (word.classList.contains('selected')) {
+                    if (word.dataset.role === 'subject') {
+                        word.classList.add('correct');
+                        correctSelection = true;
+                    } else {
+                        word.classList.add('incorrect');
+                    }
+                }
+            });
+            
+            if (correctSelection) {
+                score += 5;
+                correct++;
+                feedback.textContent = "✅ صحيح!";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "❌ خطأ";
+                feedback.className = "feedback incorrect";
+                
+                words.forEach(word => {
+                    if (word.dataset.role === 'subject') {
+                        word.classList.add('correct');
+                    }
+                });
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function nextIntensive() {
+            currentIntensiveIndex++;
+            if (currentIntensiveIndex >= intensiveSentences.length) {
+                document.getElementById('intensiveFeedback').textContent = "🎉 تهانينا! أكملت جميع الجمل الأربعين! أنت الآن خبير في تحديد الفاعل!";
+                document.getElementById('intensiveFeedback').className = "feedback correct";
+                document.getElementById('intensiveFeedback').style.display = 'block';
+                return;
+            }
+            
+            const sentence = intensiveSentences[currentIntensiveIndex];
+            const sentenceElement = document.getElementById('intensiveSentence');
+            
+            sentenceElement.innerHTML = '';
+            sentence.words.forEach(wordData => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = wordData.text;
+                span.dataset.role = wordData.role;
+                span.onclick = () => selectWord(span);
+                sentenceElement.appendChild(span);
+            });
+            
+            // تحديث السؤال
+            document.getElementById('intensiveQuestion').textContent = `السؤال: ${sentence.question}`;
+            
+            document.getElementById('currentQuestion').textContent = currentIntensiveIndex + 1;
+            document.getElementById('intensiveProgress').style.width = ((currentIntensiveIndex + 1) / 40) * 100 + '%';
+            document.getElementById('intensiveFeedback').style.display = 'none';
+        }
+        
+        // وظائف تحدي السرعة
+        function startSpeedChallenge() {
+            speedScore = 0;
+            speedIndex = 0;
+            speedTimer = 60;
+            
+            document.getElementById('speedStart').style.display = 'none';
+            document.getElementById('speedCheck').style.display = 'inline-block';
+            
+            loadSpeedSentence();
+            
+            speedInterval = setInterval(() => {
+                speedTimer--;
+                document.getElementById('speedTimer').textContent = speedTimer;
+                
+                if (speedTimer <= 0) {
+                    endSpeedChallenge();
+                }
+            }, 1000);
+        }
+        
+        function loadSpeedSentence() {
+            if (speedIndex >= speedSentences.length) {
+                speedIndex = 0;
+            }
+            
+            const sentence = speedSentences[speedIndex];
+            const sentenceElement = document.getElementById('speedSentence');
+            
+            sentenceElement.innerHTML = '';
+            sentence.words.forEach(wordData => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = wordData.text;
+                span.dataset.role = wordData.role;
+                span.onclick = () => selectWord(span);
+                sentenceElement.appendChild(span);
+            });
+        }
+        
+        function checkSpeed() {
+            const sentence = document.getElementById('speedSentence');
+            const words = sentence.querySelectorAll('.word');
+            
+            let correctSelection = false;
+            
+            words.forEach(word => {
+                if (word.classList.contains('selected') && word.dataset.role === 'subject') {
+                    correctSelection = true;
+                    speedScore++;
+                    document.getElementById('speedScore').textContent = speedScore;
+                }
+            });
+            
+            if (speedScore >= 10) {
+                endSpeedChallenge();
+                return;
+            }
+            
+            speedIndex++;
+            setTimeout(() => {
+                loadSpeedSentence();
+            }, 500);
+        }
+        
+        function endSpeedChallenge() {
+            clearInterval(speedInterval);
+            document.getElementById('speedStart').style.display = 'inline-block';
+            document.getElementById('speedCheck').style.display = 'none';
+            
+            const feedback = document.getElementById('speedFeedback');
+            if (speedScore >= 10) {
+                feedback.textContent = `🏆 مبروك! أكملت التحدي بنجاح! النقاط: ${speedScore}/10`;
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `⏰ انتهى الوقت! النقاط: ${speedScore}/10 - حاول مرة أخرى!`;
+                feedback.className = "feedback incorrect";
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // وظائف الفقرات
+        function checkParagraph() {
+            const feedback = document.getElementById('paragraphFeedback');
+            const expectedSubjects = ['الطلاب', 'المعلمة', 'الطالبات'];
+            
+            if (paragraphSubjects.length === 3 && 
+                expectedSubjects.every(subject => paragraphSubjects.includes(subject))) {
+                score += 20;
+                correct++;
+                feedback.textContent = "🎉 ممتاز! حددت جميع الفواعل بشكل صحيح!";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ لم تحدد جميع الفواعل. الفواعل الصحيحة: ${expectedSubjects.join(', ')}`;
+                feedback.className = "feedback incorrect";
+            }
+            
+            attempts++;
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function resetParagraph() {
+            paragraphSubjects = [];
+            document.getElementById('subjectsList').textContent = 'لم تحدد أي فاعل بعد';
+            document.getElementById('paragraphFeedback').style.display = 'none';
+            
+            const words = document.querySelectorAll('#paragraph .word');
+            words.forEach(word => {
+                word.classList.remove('selected', 'correct', 'incorrect');
+            });
+        }
+        
+        // وظائف التحديات
+        function checkChallenge() {
+            const feedback = document.getElementById('challengeFeedback');
+            const expectedSubjects = ['الأطفال', 'البنات', 'الآباء'];
+            
+            if (challengeSubjects.length === 3 && 
+                expectedSubjects.every(subject => challengeSubjects.includes(subject))) {
+                score += 25;
+                correct++;
+                feedback.textContent = "🔥 رائع! حددت جميع الفواعل في الجملة المركبة!";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ الفواعل الصحيحة: ${expectedSubjects.join(', ')}`;
+                feedback.className = "feedback incorrect";
+            }
+            
+            attempts++;
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function selectHidden(answer) {
+            attempts++;
+            const feedback = document.getElementById('hiddenFeedback');
+            
+            if (answer === 'مستتر') {
+                score += 30;
+                correct++;
+                feedback.textContent = "🏆 ممتاز! الفاعل مستتر تقديره 'هو' يعود على محمد";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "❌ خطأ. الفاعل هنا ضمير مستتر تقديره 'هو' يعود على محمد";
+                feedback.className = "feedback incorrect";
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        // تحديث وظيفة selectWord للفقرات والتحديات
+        function selectWordAdvanced(element, type) {
+            const word = element.textContent;
+            
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                if (type === 'paragraph') {
+                    paragraphSubjects = paragraphSubjects.filter(s => s !== word);
+                } else if (type === 'challenge') {
+                    challengeSubjects = challengeSubjects.filter(s => s !== word);
+                }
+            } else {
+                element.classList.add('selected');
+                if (element.dataset.role === 'subject') {
+                    if (type === 'paragraph' && !paragraphSubjects.includes(word)) {
+                        paragraphSubjects.push(word);
+                    } else if (type === 'challenge' && !challengeSubjects.includes(word)) {
+                        challengeSubjects.push(word);
+                    }
+                }
+            }
+            
+            if (type === 'paragraph') {
+                document.getElementById('subjectsList').textContent = 
+                    paragraphSubjects.length > 0 ? paragraphSubjects.join(', ') : 'لم تحدد أي فاعل بعد';
+            }
+        }
+        
+        // بدء المؤقت للتدريب المكثف
+        function startIntensiveTimer() {
+            intensiveInterval = setInterval(() => {
+                intensiveTimer++;
+                const minutes = Math.floor(intensiveTimer / 60);
+                const seconds = intensiveTimer % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        // متغيرات أنواع الفاعل - للصف الخامس الأساسي
+        const typeQuestions = [
+            {sentence: "كتبت الطالبات التقرير", subject: "الطالبات", type: "جمع مؤنث سالم"},
+            {sentence: "لعب الأطفال في الحديقة", subject: "الأطفال", type: "جمع تكسير"},
+            {sentence: "قرأ الطالب الكتاب", subject: "الطالب", type: "مفرد مذكر"},
+            {sentence: "طبخت المرأة الطعام", subject: "المرأة", type: "مفرد مؤنث"},
+            {sentence: "درست البنات النحو", subject: "البنات", type: "جمع تكسير"},
+            {sentence: "كتبت الطالبة الواجب", subject: "الطالبة", type: "مفرد مؤنث"},
+            {sentence: "لعب الولد الكرة", subject: "الولد", type: "مفرد مذكر"},
+            {sentence: "غنت المطربات الأغاني", subject: "المطربات", type: "جمع مؤنث سالم"},
+            {sentence: "جاء الضيوف مساءً", subject: "الضيوف", type: "جمع تكسير"},
+            {sentence: "حضرت المعلمات الاجتماع", subject: "المعلمات", type: "جمع مؤنث سالم"},
+            {sentence: "رسم الفنان اللوحة", subject: "الفنان", type: "مفرد مذكر"},
+            {sentence: "طارت الطيور عالياً", subject: "الطيور", type: "جمع تكسير"}
+        ];
+        
+        const mixedQuestions = [
+            {words: [{text: "كتبت", role: "verb"}, {text: "الطالبات", role: "subject"}, {text: "التقرير", role: "object"}], type: "جمع مؤنث سالم"},
+            {words: [{text: "لعب", role: "verb"}, {text: "الأطفال", role: "subject"}, {text: "الكرة", role: "object"}], type: "جمع تكسير"},
+            {words: [{text: "حضر", role: "verb"}, {text: "المعلم", role: "subject"}, {text: "الاجتماع", role: "object"}], type: "مفرد مذكر"},
+            {words: [{text: "طبخت", role: "verb"}, {text: "الأم", role: "subject"}, {text: "الطعام", role: "object"}], type: "مفرد مؤنث"},
+            {words: [{text: "درس", role: "verb"}, {text: "الطلاب", role: "subject"}, {text: "النحو", role: "object"}], type: "جمع تكسير"},
+            {words: [{text: "عملت", role: "verb"}, {text: "المهندسات", role: "subject"}, {text: "المشروع", role: "object"}], type: "جمع مؤنث سالم"},
+            {words: [{text: "قرأت", role: "verb"}, {text: "البنت", role: "subject"}, {text: "القصة", role: "object"}], type: "مفرد مؤنث"},
+            {words: [{text: "كتب", role: "verb"}, {text: "الولد", role: "subject"}, {text: "الواجب", role: "object"}], type: "مفرد مذكر"}
+        ];
+        
+        let currentTypeIndex = 0;
+        let currentMixedIndex = 0;
+        let mixedStep = 1; // 1 = تحديد الفاعل، 2 = تحديد النوع
+        
+        function checkType(selectedType) {
+            attempts++;
+            const feedback = document.getElementById('typesFeedback');
+            const currentQuestion = typeQuestions[currentTypeIndex];
+            
+            if (selectedType === currentQuestion.type) {
+                score += 15;
+                correct++;
+                feedback.textContent = `🎉 ممتاز! "${currentQuestion.subject}" هو فعلاً ${currentQuestion.type}`;
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ خطأ. "${currentQuestion.subject}" هو ${currentQuestion.type} وليس ${selectedType}`;
+                feedback.className = "feedback incorrect";
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function nextTypeQuestion() {
+            currentTypeIndex = (currentTypeIndex + 1) % typeQuestions.length;
+            const question = typeQuestions[currentTypeIndex];
+            
+            document.getElementById('typesSentence').textContent = question.sentence;
+            document.getElementById('typesFeedback').style.display = 'none';
+        }
+        
+        function checkMixed() {
+            if (mixedStep === 1) {
+                attempts++;
+                const sentence = document.getElementById('mixedSentence');
+                const words = sentence.querySelectorAll('.word');
+                const feedback = document.getElementById('mixedFeedback');
+                
+                let correctSelection = false;
+                
+                words.forEach(word => {
+                    if (word.classList.contains('selected')) {
+                        if (word.dataset.role === 'subject') {
+                            word.classList.add('correct');
+                            correctSelection = true;
+                        } else {
+                            word.classList.add('incorrect');
+                        }
+                    }
+                });
+                
+                if (correctSelection) {
+                    score += 10;
+                    correct++;
+                    feedback.textContent = "✅ ممتاز! حددت الفاعل بشكل صحيح";
+                    feedback.className = "feedback correct";
+                    
+                    // إظهار سؤال النوع
+                    document.getElementById('mixedTypeQuestion').style.display = 'block';
+                    mixedStep = 2;
+                } else {
+                    feedback.textContent = "❌ خطأ في تحديد الفاعل";
+                    feedback.className = "feedback incorrect";
+                    
+                    words.forEach(word => {
+                        if (word.dataset.role === 'subject') {
+                            word.classList.add('correct');
+                        }
+                    });
+                }
+                
+                feedback.style.display = 'block';
+                updateScore();
+            }
+        }
+        
+        function checkMixedType(selectedType) {
+            attempts++;
+            const feedback = document.getElementById('mixedFeedback');
+            const currentQuestion = mixedQuestions[currentMixedIndex];
+            
+            if (selectedType === currentQuestion.type) {
+                score += 15;
+                correct++;
+                feedback.textContent = `🎉 رائع! النوع صحيح: ${currentQuestion.type}`;
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ خطأ. النوع الصحيح هو: ${currentQuestion.type}`;
+                feedback.className = "feedback incorrect";
+            }
+            
+            feedback.style.display = 'block';
+            updateScore();
+        }
+        
+        function nextMixed() {
+            currentMixedIndex = (currentMixedIndex + 1) % mixedQuestions.length;
+            const question = mixedQuestions[currentMixedIndex];
+            const sentenceElement = document.getElementById('mixedSentence');
+            
+            sentenceElement.innerHTML = '';
+            question.words.forEach(wordData => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = wordData.text;
+                span.dataset.role = wordData.role;
+                span.onclick = () => selectWord(span);
+                sentenceElement.appendChild(span);
+            });
+            
+            document.getElementById('mixedTypeQuestion').style.display = 'none';
+            document.getElementById('mixedFeedback').style.display = 'none';
+            mixedStep = 1;
+        }
+        
+        // إضافة مستمعي الأحداث للكلمات
+        document.addEventListener('DOMContentLoaded', function() {
+            const words = document.querySelectorAll('.word');
+            words.forEach(word => {
+                word.addEventListener('click', () => {
+                    const parentId = word.closest('.tab-content').id;
+                    if (parentId === 'paragraph') {
+                        selectWordAdvanced(word, 'paragraph');
+                    } else if (parentId === 'challenges') {
+                        selectWordAdvanced(word, 'challenge');
+                    } else {
+                        selectWord(word);
+                    }
+                });
+            });
+            
+            // بدء المؤقت للتدريب المكثف
+            startIntensiveTimer();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f11fdf26f4de53',t:'MTc2MDU1MDI2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
